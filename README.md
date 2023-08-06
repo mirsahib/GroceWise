@@ -4,6 +4,24 @@
 
 GroceWISE is a smart grocery companion, leveraging cutting-edge AI and machine learning. Log day to day purchases, and GroceWISE optimizes personalized recommendations for according to the shopping list. Anticipate future needs, discover popular items, and shop efficiently.
 
+## Gitflow
+1. Clone the repo to a local repository
+`git clone https://github.com/mirsahib/GroceWise.git`
+
+2. Create and start working on a local branch `git checkout -b branch-name`
+
+3. Make changes in working directory
+
+4. Add changes to staging `git add .`
+
+5. Commit changes `git commit -m "Write changes here.`
+6. Push changes to GitHub branch — `git push origin <your branch name>`
+7. Create Pull Request to merge commit(s) to the main branch
+8. Another collaborator reviews, resolves conflicts (if any), and merges PR
+9. Switch to local main branch git checkout main
+10. Pull down main changes from GitHub to local git pull origin main
+11. Delete branch on GitHub & local if desired.
+
 
 ## Getting Started
 
