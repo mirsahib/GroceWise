@@ -33,3 +33,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+/ML_AI_Algorithm/WMT_Grocery_202209.csv
