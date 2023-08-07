@@ -34,3 +34,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 /ML_AI_Algorithm/WMT_Grocery_202209.csv
+/ML_AI_Algorithm/lib
+/ML_AI_Algorithm/lib64
+/ML_AI_Algorithm/pyenv.cfg
+/ML_AI_Algorithm/include
