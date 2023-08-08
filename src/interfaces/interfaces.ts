@@ -11,3 +11,7 @@ export interface ItemLinkProps {
 export interface IconProps {
   size?: string | number | '1rem';
 }
+
+export interface SearchFormInputs{
+  search:string
+}
