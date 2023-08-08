@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { UseFormWatch } from "react-hook-form";
 import { SearchFormInputs } from "@/interfaces/interfaces";
 import {supabase} from "@/lib/supabase";
+import { Database } from "@/db/schema";
 
+type Products = Database['public']['Tables']['products']['Row']
 function debounce(func: Function, delay: number) {
     let timerId: ReturnType<typeof setTimeout>;
 
@@ -16,17 +18,17 @@ function debounce(func: Function, delay: number) {
 }
 
 const useSearch = (watch: UseFormWatch<SearchFormInputs>) => {
-    const [products, setProducts] = useState<any[] | null>(null);
+    const [products, setProducts] = useState<Products[] | null>(null);
     const [loading, setLoading] = useState(false);
-    const [suggestion, setSuggestion] = useState("");
+    const [display, setDisplay] = useState(false);
     const handleSearch = async (query: string) => {
         try {
             setLoading(true);
             if (query.length != 0) {
                 const { data, error } = await supabase
-                    .from("products")
-                    .select()
-                    .textSearch("title", query);
+                .rpc('search_products', {
+                  product_title:query
+                })
                 console.log(
                     "🚀 ~ file: App.tsx:22 ~ subscription ~ data:",
                     data
@@ -34,12 +36,13 @@ const useSearch = (watch: UseFormWatch<SearchFormInputs>) => {
                 if (error) throw error;
                 setLoading(false);
                 if (data && data.length === 0) {
-                    setSuggestion("Not found");
+                    setDisplay(true);
                 }
                 setProducts(data);
             } else {
                 setLoading(false);
-                setSuggestion("");
+                setDisplay(false);
+                setProducts(null)
             }
         } catch (error) {
             console.error("🚀 ~ file: App.tsx:29 ~ subscription ~ error:", error);
@@ -56,6 +59,6 @@ const useSearch = (watch: UseFormWatch<SearchFormInputs>) => {
         return () => subscription.unsubscribe();
     }, [watch]);
 
-    return { products, loading, suggestion };
+    return { products, loading, display };
 };
 export default useSearch;
