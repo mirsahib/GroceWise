@@ -10,7 +10,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/supabase/db.types';
+import type { Database } from '@/db/schema';
+
+export const dynamic = 'force-dynamic';
 
 export default function UserLogin() {
   const [submitting, setSubmitting] = useState(false);
@@ -38,14 +40,13 @@ export default function UserLogin() {
         const { data, error } = await supabase.auth.signInWithPassword({
           ...values,
         });
-
         if (!error) {
           toast({
             title: 'Logged in successfully!',
           });
 
-          router.refresh();
           router.push('/');
+          router.refresh();
         }
       } catch (error) {
         console.error(error);

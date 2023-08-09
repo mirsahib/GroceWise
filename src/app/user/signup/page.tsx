@@ -10,7 +10,9 @@ import Link from 'next/link';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/supabase/db.types';
+import type { Database } from '@/db/schema';
+
+export const dynamic = 'force-dynamic';
 
 export default function UserLogin() {
   const [submitting, setSubmitting] = useState(false);
@@ -40,8 +42,6 @@ export default function UserLogin() {
       setSubmitting(true);
 
       try {
-        if (!supabase) return;
-
         const { data, error } = await supabase.auth.signUp({
           email: values.email,
           password: values.password,
@@ -49,15 +49,14 @@ export default function UserLogin() {
             emailRedirectTo: `${location.origin}/user/login`,
           },
         });
-
         if (!error) {
           toast({
             title: 'Sign up successfully!',
             description: 'Check your email for the confirmation link.',
           });
 
-          router.refresh();
           router.push('/');
+          router.refresh();
         }
       } catch (error) {
         console.error(error);

@@ -1,9 +1,13 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import { ItemLinkProps } from '@/interfaces/interfaces';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import MobileHeaderMenu from './MobileHeaderMenu';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/db/schema';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const links: ItemLinkProps[] = [
   { href: '/frequently_bought', children: 'Frequently Bought' },
@@ -11,11 +15,32 @@ const links: ItemLinkProps[] = [
   { href: '/recommendation', children: 'Recommendation' },
 ];
 
-export default async function Header() {
-  const supabase = createServerComponentClient({ cookies });
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+export default function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [finishLoading, setFinishLoading] = useState(false);
+
+  const supabase = createClientComponentClient<Database>();
+
+  const checkLoggedIn = async () => {
+    setFinishLoading(false);
+
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+
+    setFinishLoading(true);
+  };
+
+  useEffect(() => {
+    checkLoggedIn();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabase.auth.getSession()]);
 
   return (
     <header className='w-full shadow sticky -top-1 z-10 bg-white'>
@@ -38,7 +63,9 @@ export default async function Header() {
           </ul>
         </nav>
 
-        {session ? (
+        {!finishLoading ? (
+          <Skeleton className='w-[50px] h-[24px]' />
+        ) : isLoggedIn ? (
           <Link
             className='hover:underline focus:underline'
             href='/user/profile'>

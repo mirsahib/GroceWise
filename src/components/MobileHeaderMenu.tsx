@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { HamburgerIcon } from '@/assets/icons';
 import {
   DropdownMenu,
@@ -13,6 +14,9 @@ import {
 import { ItemLinkProps } from '@/interfaces/interfaces';
 import { useRouter } from 'next/navigation';
 import { ClientOnly } from './ClientOnly';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/db/schema';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const links: ItemLinkProps[] = [
   { href: '/frequently_bought', children: 'Frequently Bought' },
@@ -21,7 +25,32 @@ const links: ItemLinkProps[] = [
 ];
 
 export default function MobileHeaderMenu() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [finishLoading, setFinishLoading] = useState(false);
+
   const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
+
+  const checkLoggedIn = async () => {
+    setFinishLoading(false);
+
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+
+    setFinishLoading(true);
+  };
+
+  useEffect(() => {
+    checkLoggedIn();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabase.auth.getSession()]);
 
   return (
     <ClientOnly>
@@ -44,9 +73,17 @@ export default function MobileHeaderMenu() {
             ))}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => router.push('/user/login')}>
-            Login
-          </DropdownMenuItem>
+          {!finishLoading ? (
+            <Skeleton className='w-[50px] h-[24px]' />
+          ) : isLoggedIn ? (
+            <DropdownMenuItem onClick={() => router.push('/user/profile')}>
+              Profile
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem onClick={() => router.push('/user/login')}>
+              Login
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </ClientOnly>
