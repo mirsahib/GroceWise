@@ -12,6 +12,6 @@ export interface IconProps {
   size?: string | number | '1rem';
 }
 
-export interface SearchFormInputs{
-  search:string
+export interface SearchFormInputs {
+  search: string;
 }

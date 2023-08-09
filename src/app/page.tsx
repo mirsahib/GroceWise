@@ -1,6 +1,6 @@
 import SearchBar from '@/components/SearchBar';
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       <SearchBar />

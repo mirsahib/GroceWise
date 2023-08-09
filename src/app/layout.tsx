@@ -1,8 +1,9 @@
-import { ChildrenProp } from '@/interfaces/interfaces';
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
+import type { Metadata } from 'next';
+import { ChildrenProp } from '@/interfaces/interfaces';
 import Header from '@/components/Header';
+import { Toaster } from '@/components/ui/toaster';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: ChildrenProp) {
         <main className='max-w-[1280px] min-h-[200vh] xl:mx-auto px-3 py-10'>
           {children}
         </main>
+        <Toaster />
       </body>
     </html>
   );
