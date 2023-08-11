@@ -13,6 +13,7 @@ import { Button } from './ui/button';
 import { AddToCartIcon } from '@/assets/icons';
 import Image from 'next/image';
 import { ProductCardProps } from '@/interfaces/interfaces';
+import { Input } from './ui/input';
 
 export default function ProductCard(props: ProductCardProps) {
   const [priceValue, setPriceValue] = useState<number | null>(
@@ -57,7 +58,7 @@ export default function ProductCard(props: ProductCardProps) {
         <div className='flex items-center'>
           <div className='max-w-max flex gap-0.5 items-center'>
             <span>$</span>
-            <input
+            <Input
               className='w-3/5'
               type='number'
               value={priceValue ?? ''}
@@ -65,7 +66,7 @@ export default function ProductCard(props: ProductCardProps) {
             />
           </div>
           <div className='flex items-center'>
-            <input
+            <Input
               type='date'
               value={shelfLifeValue}
               onChange={handleUpdateShelfLife}
