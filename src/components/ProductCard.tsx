@@ -74,7 +74,9 @@ export default function ProductCard(props: ProductCardProps) {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className='flex items-center gap-2' onClick={handleAddToCart}>
+        <Button
+          className='w-full flex items-center gap-2'
+          onClick={handleAddToCart}>
           <AddToCartIcon size='1.25rem' />
           Add to cart
         </Button>
