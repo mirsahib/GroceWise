@@ -82,7 +82,7 @@ export default function Header() {
         <Link
           className='font-semibold hover:underline focus:underline'
           href='/'>
-          GroseWise
+          GroceWise
         </Link>
 
         <MobileHeaderMenu />
