@@ -15,3 +15,18 @@ export interface IconProps {
 export interface SearchFormInputs {
   search: string;
 }
+export interface ProductEntry {
+  product_id: number;
+  product_title: string;
+  shopping_list_id: number;
+  user_id: string;
+}
+export interface TransformedUserData {
+  user_id: string;
+  product_id: number[];
+}
+export interface UserProductEntry {
+  product_id: number;
+  product_title: string;
+  shopping_list_id: number;
+}
