@@ -40,8 +40,6 @@ const useGetRecommendation = () => {
             if (!userProductJson) throw new Error("User Product json Missing");
             if (allProductError) throw allProductError;
             if (userProductError) throw userProductError;
-            //console.log("🚀 ~ file: useGetRecommendation.ts:33 ~ getProductData ~ allProductList:", allProductJson)
-            //console.log("🚀 ~ file: useGetRecommendation.ts:35 ~ getProductData ~ userProductList:", userProductJson)
             const allUserProductList = transformAllUserProductList(
                 allProductJson.valueOf() as ProductEntry[]
             );
@@ -49,43 +47,8 @@ const useGetRecommendation = () => {
                 userProductJson.valueOf() as UserProductEntry[],
                 user.id
             );
-            console.log(
-                "🚀 ~ file: useGetRecommendation.ts:42 ~ getProductData ~ allUserProductList:",
-                allUserProductList
-            );
-            console.log(
-                "🚀 ~ file: useGetRecommendation.ts:44 ~ getProductData ~ userProductList:",
-                userProductList
-            );
 
-            // text dataset
-            // const userProductList: TransformedUserData = {
-            //     user_id: '1664a92b-6a53-43c0-88e0-aef242e54c73',
-            //     product_id: [1, 2, 3],
-            // };
-
-            // const allUserProductList: TransformedUserData[] = [
-            //     {
-            //         user_id: '1664a92b-6a53-43c0-88e0-aef242e54c73',
-            //         product_id: [4, 5, 6],
-            //     },
-            //     {
-            //         user_id: 'efb92c5a-a65a-4ce4-8e66-f1c3b48049d3',
-            //         product_id: [1, 2, 7],
-            //     },
-            //     {
-            //         user_id: '80862ed3-5024-46e6-b7ac-0d5435046a15',
-            //         product_id: [3, 6, 8],
-            //     },
-            // ];
-            // const recommendedProducts = recommendProducts(
-            //     userProductList,
-            //     allUserProductList,
-            //     similarityThreshold
-            // );
-            //console.log("🚀 ~ file: useGetRecommendation.ts:72 ~ getProductData ~ recommendedProducts:", recommendedProducts)
-
-            const similarityThreshold = 0.5;
+            const similarityThreshold = 0.04;
             const RecommendedProduct = recommendProducts(
                 userProductList,
                 allUserProductList,
@@ -112,7 +75,7 @@ const useGetRecommendation = () => {
     };
     useEffect(() => {
         getProductData();
-    }, [product,loading]);
+    }, []);
 
     return {product,loading}
 };

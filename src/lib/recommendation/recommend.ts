@@ -28,6 +28,7 @@ function recommendProducts(userProductList: TransformedUserData, allProductList:
         }
 
         const similarity = calculateCosineSimilarity(userProductList.product_id, productIds);
+        console.log("🚀 ~ file: recommend.ts:31 ~ recommendProducts ~ similarity:", similarity)
 
         if (similarity >= similarityThreshold) {
             for (const productId of productIds) {
@@ -37,8 +38,6 @@ function recommendProducts(userProductList: TransformedUserData, allProductList:
             }
         }
     }
-
-    console.log("🚀 ~ file: recommend.ts:40 ~ recommendProducts ~ recommendedProducts:", recommendedProducts)
     return Array.from(recommendedProducts);
 }
 export default recommendProducts
