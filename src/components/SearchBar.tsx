@@ -55,7 +55,7 @@ export default function SearchBar({}: Props) {
                 <div className="lg:w-[720px] max-h-48 overflow-auto">
                     {loading ? <Loader2 className="animate-spin" /> : ""}
 
-                    <ul className="flex flex-col gap-2">
+                    <ul className="flex flex-col gap-2 absolute z-10 bg-white">
                         {renderProductLink()}
                     </ul>
                 </div>
