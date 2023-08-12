@@ -43,16 +43,17 @@ export default function Header() {
   }, [supabase.auth.getSession()]);
 
   return (
-    <header className='w-full shadow sticky -top-1 z-10 bg-white'>
-      <div className='max-w-[1280px] xl:mx-auto px-3 py-6 hidden md:flex justify-between items-center'>
+    <header className="w-full shadow sticky -top-1 z-10 bg-white">
+      <div className="max-w-[1280px] xl:mx-auto px-3 py-6 hidden md:flex justify-between items-center">
         <Link
-          className='font-semibold hover:underline focus:underline'
-          href='/'>
+          className="font-semibold hover:underline focus:underline"
+          href="/"
+        >
           GroceWise
         </Link>
 
         <nav>
-          <ul className='flex gap-3'>
+          <ul className="flex gap-8">
             {links.map((link, index) => (
               <ItemLink
                 key={link.href}
@@ -64,24 +65,26 @@ export default function Header() {
         </nav>
 
         {!finishLoading ? (
-          <Skeleton className='w-[50px] h-[24px]' />
+          <Skeleton className="w-[50px] h-[24px]" />
         ) : isLoggedIn ? (
           <Link
-            className='hover:underline focus:underline'
-            href='/user/profile'>
+            className="hover:underline focus:underline"
+            href="/user/profile"
+          >
             Profile
           </Link>
         ) : (
-          <Link className='hover:underline focus:underline' href='/user/login'>
+          <Link className="hover:underline focus:underline" href="/user/login">
             Login
           </Link>
         )}
       </div>
 
-      <div className='px-3 py-6 flex md:hidden justify-between'>
+      <div className="px-3 py-6 flex md:hidden justify-between">
         <Link
-          className='font-semibold hover:underline focus:underline'
-          href='/'>
+          className="font-semibold hover:underline focus:underline"
+          href="/"
+        >
           GroceWise
         </Link>
 
@@ -93,11 +96,14 @@ export default function Header() {
 
 function ItemLink(props: ItemLinkProps) {
   return (
-    <li className='flex gap-3'>
-      <Link className='hover:underline focus:underline' href={props.href}>
+    <li className="flex gap-8">
+      <Link
+        className="hover:underline focus:underline uppercase text-xs font-semibold"
+        href={props.href}
+      >
         {props.children}
       </Link>
-      {props.separator && <Separator orientation='vertical' />}
+      {props.separator && <Separator orientation="vertical" />}
     </li>
   );
 }
