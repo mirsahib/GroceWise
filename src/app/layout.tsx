@@ -18,7 +18,7 @@ export default function RootLayout({ children }: ChildrenProp) {
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <main className="max-w-[1280px] min-h-[200vh] xl:mx-auto px-3 py-10">
+        <main className="flex flex-col max-w-[1280px] min-h-[200vh] xl:mx-auto px-3 py-10 gap-8">
           {children}
         </main>
         <Toaster />
