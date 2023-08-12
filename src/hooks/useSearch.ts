@@ -63,10 +63,14 @@ const useSearch = (watch: UseFormWatch<SearchFormInputs>) => {
 
   useEffect(() => {
     const subscription = watch(async (value) => {
+      if (!value?.search) {
+        return;
+      }
+
       debouncedHandleSearch(value.search);
     });
     return () => subscription.unsubscribe();
-  }, [watch]);
+  }, [watch, debouncedHandleSearch]);
 
   return { products, loading, display };
 };
