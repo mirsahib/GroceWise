@@ -138,6 +138,10 @@ export interface Database {
         Args: Record<PropertyKey, never>
         Returns: Json
       }
+      get_unique_categories: {
+        Args: Record<PropertyKey, never>
+        Returns: string[]
+      }
       get_user_product_info: {
         Args: {
           input_user_id: string

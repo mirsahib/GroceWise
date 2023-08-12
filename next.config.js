@@ -4,6 +4,10 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  images: {
+    domains: ['www.bigbasket.com'],
+}
+
 };
 
 module.exports = nextConfig;
