@@ -2,7 +2,7 @@ import Protected from '@/views/Protected';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { Database } from '@/db/schema';
-import FrequentlyBoughtContainer from '@/components/FrequentlyBoughtContainer';
+import FrequentlyBoughtContainer from '@/container/FrequentlyBoughtContainer';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,7 +18,7 @@ export default async function FrequentlyBought() {
 
   return (
     <>
-      <h1>Frequently</h1>
+      
       <FrequentlyBoughtContainer/>
     </>
   );
