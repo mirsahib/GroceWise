@@ -1,3 +1,5 @@
+import { Database } from "@/db/schema";
+
 export interface ChildrenProp {
   children: React.ReactNode;
 }
@@ -39,3 +41,5 @@ export interface ProductCardProps {
   product_price: number;
   product_shelf_life: string;
 }
+
+export type Products = Database['public']['Tables']['products']['Row']
