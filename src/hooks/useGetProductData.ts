@@ -1,13 +1,13 @@
 import { Products } from '@/interfaces/interfaces'
 import {supabase} from '@/lib/supabase'
 import { useEffect, useState } from 'react'
-const useGetProductData = ()=>{
+const useGetProductData = (category:string)=>{
     const [products,setProducts] = useState<Products[]|null>(null)
     const [loading,setLoading] = useState(false)
     const getProductData = async()=>{
         try {
             setLoading(true)
-            const {data,error} = await supabase.from('products').select('*')
+            const {data,error} = await supabase.from('products').select('*').eq('category',category)
             if(error) throw error
             if(!data) throw new Error('Product data missing')
             console.log("🚀 ~ file: useGetProductData.ts:10 ~ useGetProductData ~ data:", data)
@@ -21,7 +21,7 @@ const useGetProductData = ()=>{
     }
     useEffect(()=>{
         getProductData()
-    },[])
+    },[category])
     return{products,loading}
 }
 
