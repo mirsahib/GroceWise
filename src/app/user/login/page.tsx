@@ -40,13 +40,23 @@ export default function UserLogin() {
         const { data, error } = await supabase.auth.signInWithPassword({
           ...values,
         });
+
         if (!error) {
           toast({
             title: 'Logged in successfully!',
+            description: `Welcome back, ${data?.user?.email}`,
+            color: 'green',
           });
 
           router.push('/');
           router.refresh();
+        }
+
+        if (error) {
+          toast({
+            title: 'Login failed',
+            description: error.message,
+          });
         }
       } catch (error) {
         console.error(error);
@@ -58,36 +68,37 @@ export default function UserLogin() {
 
   return (
     <>
-      <h1 className='font-semibold text-xl text-center'>GroceWise Login</h1>
+      <h1 className="font-semibold text-xl text-center">GroceWise Login</h1>
 
       <form
         onSubmit={formik.handleSubmit}
-        className='max-w-[300px] mx-auto my-10 flex flex-col gap-3'>
-        <section className='flex flex-col gap-2'>
-          <Label htmlFor='email'>Email</Label>
+        className="max-w-[300px] mx-auto my-10 flex flex-col gap-3"
+      >
+        <section className="flex flex-col gap-2">
+          <Label htmlFor="email">Email</Label>
           <Input
-            id='email'
-            type='email'
-            placeholder='example@email.com'
+            id="email"
+            type="email"
+            placeholder="example@email.com"
             value={formik.values.email}
             onChange={formik.handleChange}
           />
-          <p className='text-red-500 whitespace-pre text-sm'>
+          <p className="text-red-500 whitespace-pre text-sm">
             {formik.errors.email && formik.touched.email
               ? formik.errors.email
               : ' '}
           </p>
         </section>
 
-        <section className='flex flex-col gap-2'>
-          <Label htmlFor='password'>Password</Label>
+        <section className="flex flex-col gap-2">
+          <Label htmlFor="password">Password</Label>
           <Input
-            id='password'
-            type='password'
+            id="password"
+            type="password"
             value={formik.values.password}
             onChange={formik.handleChange}
           />
-          <p className='text-red-500 whitespace-pre text-sm'>
+          <p className="text-red-500 whitespace-pre text-sm">
             {formik.errors.password && formik.touched.password
               ? formik.errors.password
               : ' '}
@@ -95,12 +106,13 @@ export default function UserLogin() {
         </section>
 
         <Link
-          className='text-sm hover:underline focus:underline'
-          href='/user/signup'>
+          className="text-sm hover:underline focus:underline"
+          href="/user/signup"
+        >
           {`Don't have an account? Sign up`}
         </Link>
 
-        <Button disabled={submitting} type='submit'>
+        <Button disabled={submitting} type="submit">
           {submitting ? 'Submitting...' : 'Login'}
         </Button>
       </form>

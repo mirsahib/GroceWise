@@ -46,7 +46,7 @@ export default function Header() {
     <header className="w-full shadow sticky -top-1 z-10 bg-white">
       <div className="max-w-[1280px] xl:mx-auto px-3 py-6 hidden md:flex justify-between items-center">
         <Link
-          className="font-semibold hover:underline focus:underline"
+          className="font-cadeux text-xl hover:underline focus:underline"
           href="/"
         >
           GroceWise
