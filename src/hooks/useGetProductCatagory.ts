@@ -1,17 +1,24 @@
-import { supabase } from '@/lib/supabase';
+'use client';
+
 import { useEffect, useState } from 'react';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/db/schema';
 
 const useGetProductCategory = () => {
-  const [category, setCategory] = useState<string[] | null>();
+  const [category, setCatagory] = useState<string[] | null>();
   const [loadingCategory, setCategoryLoading] = useState(false);
+  const supabase = createClientComponentClient<Database>();
+
   const getCategoryData = async () => {
     try {
       setCategoryLoading(true);
-      let { data, error } = await supabase.rpc('get_unique_categories');
+      const { data, error } = await supabase.rpc('get_unique_categories');
+
       if (error) throw error;
+
       if (!data) throw new Error('Category data missing');
 
-      setCategory(data);
+      setCatagory(data);
       setCategoryLoading(false);
     } catch (error) {
       console.error(error);
@@ -19,9 +26,11 @@ const useGetProductCategory = () => {
       setCategoryLoading(false);
     }
   };
+
   useEffect(() => {
     getCategoryData();
   }, []);
+
   return { category, loadingCategory };
 };
 
