@@ -74,7 +74,10 @@ export default function Header() {
             Profile
           </Link>
         ) : (
-          <Link className="hover:underline focus:underline" href="/user/login">
+          <Link
+            className="hover:underline focus:underline uppercase text-xs font-regular"
+            href="/user/login"
+          >
             Login
           </Link>
         )}
@@ -98,7 +101,7 @@ function ItemLink(props: ItemLinkProps) {
   return (
     <li className="flex gap-8">
       <Link
-        className="hover:underline focus:underline uppercase text-xs font-semibold"
+        className="hover:underline focus:underline uppercase text-xs"
         href={props.href}
       >
         {props.children}
