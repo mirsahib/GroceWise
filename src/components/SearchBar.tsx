@@ -22,7 +22,7 @@ export default function SearchBar({}: Props) {
   const { products, loading } = useSearch(watch);
 
   const renderProductLink = () => {
-    if (products?.length === 0) {
+    if (Array.isArray(products) && products?.length === 0) {
       return (
         <div className="flex flex-col items-center mx-auto">
           <p className="text-gray-400">Nothing found</p>
