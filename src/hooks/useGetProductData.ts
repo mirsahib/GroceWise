@@ -10,7 +10,6 @@ const useGetProductData = (category:string)=>{
             const {data,error} = await supabase.from('products').select('*').eq('category',category)
             if(error) throw error
             if(!data) throw new Error('Product data missing')
-            console.log("🚀 ~ file: useGetProductData.ts:10 ~ useGetProductData ~ data:", data)
             setProducts(data)
             setLoading(false)
         } catch (error) {
