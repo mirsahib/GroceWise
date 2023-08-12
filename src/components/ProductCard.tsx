@@ -12,19 +12,20 @@ import {
 import { Button } from './ui/button';
 import { AddToCartIcon } from '@/assets/icons';
 import Image from 'next/image';
-import { ProductCardProps } from '@/interfaces/interfaces';
+import {  Products } from '@/interfaces/interfaces';
 import { Input } from './ui/input';
+import { convertShelfLife } from '@/lib/util/convertShelfLife';
 
-export default function ProductCard(props: ProductCardProps) {
+export default function ProductCard(props: Products) {
   const [priceValue, setPriceValue] = useState<number | null>(
-    props.product_price
+    props.price
   );
   const [shelfLifeValue, setShelfLifeValue] = useState(
-    props.product_shelf_life
+    convertShelfLife(props.shelf_life)
   );
 
   const handleAddToCart = () => {
-    console.log(props.product_id);
+    console.log(props.id);
   };
 
   const handleUpdatePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,13 +49,13 @@ export default function ProductCard(props: ProductCardProps) {
           height={0}
           sizes='100vw'
           className='w-full h-auto rounded-lg'
-          src={props.product_image}
+          src={props.img_url??''}
           alt='Example image'
         />
-        <CardTitle>{props.product_title}</CardTitle>
+        <CardTitle>{props.title}</CardTitle>
       </CardHeader>
       <CardContent className='flex flex-col gap-2'>
-        <CardDescription>{props.product_description}</CardDescription>
+        {/* <CardDescription>{props.}</CardDescription> */}
         <div className='flex items-center'>
           <div className='max-w-max flex gap-0.5 items-center'>
             <span>$</span>
@@ -67,7 +68,8 @@ export default function ProductCard(props: ProductCardProps) {
           </div>
           <div className='flex items-center'>
             <Input
-              type='date'
+              type='text'
+              title='Shelf Life'
               value={shelfLifeValue}
               onChange={handleUpdateShelfLife}
             />
