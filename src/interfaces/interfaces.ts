@@ -41,5 +41,23 @@ export interface ProductCardProps {
   product_price: number;
   product_shelf_life: string;
 }
+export interface Product {
+  product_id: number;
+  product_title: string;
+  price: number;
+  img_url: string;
+}
 
+export interface ShoppingList {
+  shopping_list_id: number;
+  products: Product[];
+  created_at: string;
+}
+export interface ShoppingListProps {
+  shoppingList: {
+    shopping_list_id: number;
+    created_at: string;
+    products: Product[];
+  };
+}
 export type Products = Database['public']['Tables']['products']['Row']

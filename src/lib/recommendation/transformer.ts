@@ -1,5 +1,5 @@
 // Import necessary interfaces
-import { ProductEntry, TransformedUserData, UserProductEntry } from "@/interfaces/interfaces";
+import { Product, ProductEntry, ShoppingList, TransformedUserData, UserProductEntry } from "@/interfaces/interfaces";
 
 // Function to transform the product list of all users
 function transformAllUserProductList(
@@ -54,5 +54,40 @@ function transformUserProductList(
     return transformedData;
 }
 
+
+
+function transformShoppingLists(inputJSON: any[]): ShoppingList[] {
+    const resultMap: Map<number, ShoppingList> = new Map();
+
+    for (const item of inputJSON) {
+        const product: Product = {
+            product_id: item.product_id,
+            product_title: item.product_title,
+            price: item.price,
+            img_url: item.img_url
+        };
+
+        if (!resultMap.has(item.shopping_list_id)) {
+            resultMap.set(item.shopping_list_id, {
+                shopping_list_id: item.shopping_list_id,
+                products: [product],
+                created_at: item.created_at
+            });
+        } else {
+            const existingList = resultMap.get(item.shopping_list_id);
+            if (existingList) {
+                existingList.products.push(product);
+            }
+        }
+    }
+
+    const sortedLists = Array.from(resultMap.values()).sort((a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+
+    return sortedLists;
+}
+
+
 // Export the functions for use in other modules
-export { transformAllUserProductList, transformUserProductList };
+export { transformAllUserProductList, transformUserProductList,transformShoppingLists };

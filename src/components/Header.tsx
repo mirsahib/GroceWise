@@ -7,12 +7,12 @@ import MobileHeaderMenu from "./MobileHeaderMenu";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "@/db/schema";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ScrollText } from "lucide-react";
+import { ScrollText,FileClock,User } from "lucide-react";
 import { useAppSelector } from "@/store";
 
 const links: ItemLinkProps[] = [
     { href: "/frequently_bought", children: "Frequently Bought" },
-    { href: "/recipe", children: "Recipe" },
+    // { href: "/recipe", children: "Recipe" },
     { href: "/recommendation", children: "Recommendation" },
 ];
 
@@ -68,19 +68,28 @@ export default function Header() {
                 {!finishLoading ? (
                     <Skeleton className="w-[50px] h-[24px]" />
                 ) : isLoggedIn ? (
-                    <div className="flex gap-3">
+                    <div className="flex gap-5">
                         <Link
                             className="hover:underline focus:underline"
+                            href="/shopping_list"
+                            title="shopping history"
+                        >
+                            <FileClock/>
+                        </Link>
+                        <Link
+                            className="hover:underline focus:underline"
+                            title="current shopping list"
                             href="/current_shopping_list"
                         >
-                            {totalItem!=0&&(<span className="absolute top-2 right-[6.5rem] bg-red-500 w-[20px] h-[20px] rounded-full text-center text-white">{totalItem}</span>)}
+                            {totalItem!=0&&(<span className="absolute top-2 right-[5.25rem] bg-red-500 w-[20px] h-[20px] rounded-full text-center text-white">{totalItem}</span>)}
                             <ScrollText />
                         </Link>
                         <Link
                             className="hover:underline focus:underline"
                             href="/user/profile"
+                            title="profile"
                         >
-                            Profile
+                            <User />
                         </Link>
                     </div>
                 ) : (

@@ -1,19 +1,21 @@
 export default function truncateText(text: string, maxLength: number): string {
-    if (text.length <= maxLength) {
-        return text;
-    }
+  if (text.length <= maxLength) {
+    return text;
+  }
 
-    const truncatedText = text.substr(0, maxLength);
-    const lastSpaceIndex = truncatedText.lastIndexOf(' ');
+  const truncatedText = text.substr(0, maxLength);
+  const lastSpaceIndex = truncatedText.lastIndexOf(' ');
 
-    if (lastSpaceIndex !== -1) {
-        return truncatedText.substr(0, lastSpaceIndex) + '...';
-    }
+  if (lastSpaceIndex !== -1) {
+    return truncatedText.substr(0, lastSpaceIndex) + '...';
+  }
 
-    return text; // If no suitable space found, return original text
+  return text; // If no suitable space found, return original text
 }
-
-// Example usage:
-//const originalText = "Eggs, Meat & Fish";
-//const truncated = truncateText(originalText, 10);
-//console.log(truncated); // Output: "Eggs, Meat..."
+export function formatDate(inputDate: string) {
+  const dateObj = new Date(inputDate);
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  const year = dateObj.getFullYear();
+  return `${month}/${day}/${year}`;
+}
