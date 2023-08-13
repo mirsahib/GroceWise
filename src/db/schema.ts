@@ -134,6 +134,14 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      create_shopping_list: {
+        Args: {
+          input_user_id: string
+          date: string
+          product_id_arr: number[]
+        }
+        Returns: number
+      }
       get_all_product_info: {
         Args: Record<PropertyKey, never>
         Returns: Json
