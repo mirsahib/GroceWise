@@ -19,16 +19,31 @@ import { AddToCartIcon } from '@/assets/icons';
 import Image from 'next/image';
 import { Products } from '@/interfaces/interfaces';
 import { Input } from './ui/input';
-import { convertShelfLife } from '@/lib/util/convertShelfLife';
+import { convertShelfLifeToDays, convertShelfLifeToText } from '@/lib/util/convertShelfLife';
+import { useAppDispatch } from '@/store';
+import { addToShoppingListCart } from '@/store/shoppingListCart';
 
 export default function ProductCard(props: Products) {
-  const [priceValue, setPriceValue] = useState<number | null>(props.price);
+  const dispatch = useAppDispatch()
+
+  const [priceValue, setPriceValue] = useState<number | null>(
+    props.price
+  );
   const [shelfLifeValue, setShelfLifeValue] = useState(
-    convertShelfLife(props.shelf_life)
+    convertShelfLifeToText(props.shelf_life)
   );
 
   const handleAddToCart = () => {
     console.log(props.id);
+    // validation of shelf life incomplete
+    const updatedProduct:Products = {
+      ...props,
+      price: priceValue,
+      shelf_life: convertShelfLifeToDays(shelfLifeValue)
+    }
+    if(props){
+      dispatch(addToShoppingListCart(updatedProduct))
+    }
   };
 
   const handleUpdatePrice = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -12,7 +12,7 @@ export default function ProductContainer() {
   const { products, loading } = useGetProductData(currentCategory);
   return (
     <div className="flex flex-col mx-auto">
-      <div className="flex flex-wrap justify-center mx-auto gap-4 mb-5 md:w-[480px] lg:w-[720px]">
+      <div className="flex flex-wrap justify-center mx-auto gap-4 my-5 md:w-[480px] lg:w-[720px]">
         {category &&
           category.length > 0 &&
           category.map((item) => (

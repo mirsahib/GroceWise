@@ -70,7 +70,7 @@ const useSearch = (watch: UseFormWatch<SearchFormInputs>) => {
       debouncedHandleSearch(value.search);
     });
     return () => subscription.unsubscribe();
-  }, [watch, debouncedHandleSearch]);
+  }, [watch,debouncedHandleSearch]);
 
   return { products, loading, display };
 };
