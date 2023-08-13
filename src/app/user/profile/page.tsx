@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import type { Database } from '@/db/schema';
+import { Button } from '@/components/ui/button';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,10 +26,8 @@ export default function Logout() {
   };
 
   return (
-    <>
-      <h1>Logout</h1>
-
-      <button onClick={handleLogout}>Logout</button>
-    </>
+    <div className='flex justify-center'>
+      <Button onClick={handleLogout}>Logout</Button>
+    </div>
   );
 }
