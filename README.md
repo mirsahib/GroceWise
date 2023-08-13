@@ -1,6 +1,12 @@
 # GroceWISE
 
-<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/7bbf9ee1d71f4bb9b99c41f4cd17ce2a?sid=65fa04c6-4592-428f-89d1-7d5eab33a1c0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+<div>
+    <a href="https://www.loom.com/share/7bbf9ee1d71f4bb9b99c41f4cd17ce2a">
+    </a>
+    <a href="https://www.loom.com/share/7bbf9ee1d71f4bb9b99c41f4cd17ce2a">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/7bbf9ee1d71f4bb9b99c41f4cd17ce2a-1691940049131-with-play.gif">
+    </a>
+  </div>
 
 ### 👉 **Description**
 
