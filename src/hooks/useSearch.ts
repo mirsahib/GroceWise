@@ -3,6 +3,7 @@ import { UseFormWatch } from 'react-hook-form';
 import { SearchFormInputs } from '@/interfaces/interfaces';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/db/schema';
+import { toast } from '@/components/ui/use-toast';
 
 type Products = Database['public']['Tables']['products']['Row'];
 function debounce(func: Function, delay: number) {
@@ -26,16 +27,26 @@ const useSearch = (watch: UseFormWatch<SearchFormInputs>) => {
   const handleSearch = async (query: string) => {
     try {
       setLoading(true);
-      if (query.length != 0) {
+      if (query?.length != 0) {
         const { data, error } = await supabase.rpc('search_products', {
           product_title: query,
         });
-        console.log('🚀 ~ file: App.tsx:22 ~ subscription ~ data:', data);
-        if (error) throw error;
+
+        if (error) {
+          toast({
+            title: 'Error',
+            description: error.message,
+          });
+          setLoading(false);
+          return;
+        }
+
         setLoading(false);
-        if (data && data.length === 0) {
+
+        if (Array.isArray(data) && data.length === 0) {
           setDisplay(true);
         }
+
         setProducts(data);
       } else {
         setLoading(false);
@@ -43,7 +54,7 @@ const useSearch = (watch: UseFormWatch<SearchFormInputs>) => {
         setProducts(null);
       }
     } catch (error) {
-      console.error('🚀 ~ file: App.tsx:29 ~ subscription ~ error:', error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -52,10 +63,14 @@ const useSearch = (watch: UseFormWatch<SearchFormInputs>) => {
 
   useEffect(() => {
     const subscription = watch(async (value) => {
+      if (!value?.search) {
+        return;
+      }
+
       debouncedHandleSearch(value.search);
     });
     return () => subscription.unsubscribe();
-  }, [watch]);
+  }, [watch,debouncedHandleSearch]);
 
   return { products, loading, display };
 };
