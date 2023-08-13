@@ -57,7 +57,7 @@ export default function MobileHeaderMenu() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button>
-            <HamburgerIcon size='24px' />
+            <HamburgerIcon size="24px" />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -67,18 +67,28 @@ export default function MobileHeaderMenu() {
             {links.map((link) => (
               <DropdownMenuItem
                 key={link.href}
-                onClick={() => router.push(link.href)}>
+                onClick={() => router.push(link.href)}
+              >
                 {link.children}
               </DropdownMenuItem>
             ))}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           {!finishLoading ? (
-            <Skeleton className='w-[50px] h-[24px]' />
+            <Skeleton className="w-[50px] h-[24px]" />
           ) : isLoggedIn ? (
-            <DropdownMenuItem onClick={() => router.push('/user/profile')}>
-              Profile
-            </DropdownMenuItem>
+            <DropdownMenuGroup>
+              <DropdownMenuItem onClick={() => router.push('/shopping_list')}>
+                Shopping History
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push('/current_shopping_list')}>
+                Current Shopping List
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push('/user/profile')}>
+                Profile
+              </DropdownMenuItem>
+
+            </DropdownMenuGroup>
           ) : (
             <DropdownMenuItem onClick={() => router.push('/user/login')}>
               Login

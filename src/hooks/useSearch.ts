@@ -70,6 +70,7 @@ const useSearch = (watch: UseFormWatch<SearchFormInputs>) => {
       debouncedHandleSearch(value.search);
     });
     return () => subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watch,debouncedHandleSearch]);
 
   return { products, loading, display };
