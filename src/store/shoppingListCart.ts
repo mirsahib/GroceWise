@@ -55,10 +55,14 @@ const cartSlice = createSlice({
             );
             state.itemList.splice(productIndex, 1);
             state.totalItem = state.totalItem - 1;
+        },
+        resetShoppingListCart(state){
+            state.itemList=[]
+            state.totalItem=0
         }
     }
 });
 
-export const { addToShoppingListCart, removeFromShoppingListCart } =
+export const { addToShoppingListCart, removeFromShoppingListCart,resetShoppingListCart } =
     cartSlice.actions;
 export default cartSlice.reducer;
