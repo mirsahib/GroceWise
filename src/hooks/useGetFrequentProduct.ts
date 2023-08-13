@@ -66,7 +66,9 @@ const useGetFrequentProduct = () => {
 
   // Fetch frequent product data on component mount
   useEffect(() => {
+
     getProductData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { product, loading };

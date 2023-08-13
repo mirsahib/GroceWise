@@ -33,6 +33,7 @@ const useGetProductData = (category: string) => {
       }
     };
     getProductData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
   return { products, loading };
 };

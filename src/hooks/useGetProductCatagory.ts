@@ -29,6 +29,7 @@ const useGetProductCategory = () => {
 
   useEffect(() => {
     getCategoryData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { category, loadingCategory };
