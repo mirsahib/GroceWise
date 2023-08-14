@@ -1,17 +1,23 @@
 import { Database } from '@/db/schema';
-import Link from 'next/link';
-import React from 'react';
+import React, { SetStateAction } from 'react';
+import { Button } from './ui/button';
 type Products = Database['public']['Tables']['products']['Row'];
 
-export default function ProductLink({ title }: Products) {
+type Props = {
+  product: Products;
+  action:React.Dispatch<SetStateAction<Products|null>>
+}
+export default function ProductLink({product,action}: Props) {
+  
   return (
     <li>
-      <Link
-        className="block text-gray-800 hover:bg-gray-800 hover:text-white p-2 rounded"
-        href={'/'}
+      <Button
+        onMouseDown={() =>action(product) }
+        variant={'secondary'}
+        className="w-full block text-gray-800 hover:bg-gray-800 hover:text-white p-2 rounded"
       >
-        {title}
-      </Link>
+        {product.title}
+      </Button>
     </li>
   );
 }
