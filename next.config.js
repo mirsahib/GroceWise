@@ -5,7 +5,7 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
-    domains: ['www.bigbasket.com'],
+    domains: ['www.bigbasket.com','cxolsklwiesvwygdhtju.supabase.co'],
 }
 
 };
