@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Input } from './ui/input';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -9,6 +9,8 @@ import ProductLink from './ProductLink';
 import { Loader2, PlusSquare } from 'lucide-react';
 import { useAppDispatch } from '@/store';
 import { addToShoppingListCart } from '@/store/shoppingListCart';
+import { Button } from './ui/button';
+import { useRouter } from 'next/navigation';
 
 type Props = {};
 
@@ -23,6 +25,7 @@ export default function SearchBar({}: Props) {
   const { products, loading } = useSearch(watch);
   const [selectProduct,setSelectedProduct] = useState<Products|null>(null);
   const dispatch = useAppDispatch();
+  const router = useRouter()
   const handleBlur = ()=>{
     console.log("🚀 ~ file: SearchBar.tsx:36 ~ handleBlur ~ handleBlur:", selectProduct)
     if(selectProduct){
@@ -30,18 +33,22 @@ export default function SearchBar({}: Props) {
     }
     reset();
   }
+  const goToAddProduct = ()=>{
+    router.push('/add_product')
+  }
 
   const renderProductLink = () => {
     if (!loading && Array.isArray(products) && products?.length === 0) {
       return (
         <div className="flex flex-col items-center mx-auto">
           <p className="text-gray-400">Nothing found</p>
-          <Link
+          <Button
+            onMouseDown={() => goToAddProduct()}
             className="flex gap-2 text-gray-400 hover:text-gray-700"
-            href={'/'}
+            variant={'secondary'}
           >
             <PlusSquare size={24} />
-          </Link>
+          </Button>
         </div>
       );
     }
